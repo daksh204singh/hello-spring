@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'maven:3.6-openjdk-8'
+            args '-v $HOME/.m2:/root/.m2'
+        }
+    }
     stages {
         stage('Build') {
             steps {
@@ -15,8 +20,6 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running commands to execute Test cases'
-                sh 'exit 1'
-
             }
         }
         stage('Deploy') {
